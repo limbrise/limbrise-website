@@ -145,6 +145,12 @@
   .partner-logos img.logo-wide { height: 32px; }
   .partner-logos img.logo-square { height: 48px; }
   .partner-logos img.logo-mitacs { height: 40px; }
+  .partner-logos img.logo-dal { height: 48px; }
+  /* Medium screens: put "Supported by" above the logos so all five fit on one row */
+  @media (max-width: 1180px) {
+    .partners-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .partner-logos { width: 100%; }
+  }
   @media (max-width: 640px) {
     .partners-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
     .partner-logos { gap: 16px 20px; }
@@ -153,6 +159,7 @@
     .partner-logos img.logo-wide { height: 24px; }
     .partner-logos img.logo-square { height: 38px; }
     .partner-logos img.logo-mitacs { height: 32px; }
+    .partner-logos img.logo-dal { height: 36px; }
     .partner-logos .logo-slot { min-width: 0; flex: 1 1 40%; }
   }
   .logo-slot {
@@ -220,6 +227,9 @@
     aspect-ratio: 16 / 8; background: var(--teal-900);
     display: flex; align-items: center; justify-content: center; position: relative;
   }
+  .news-thumb { overflow: hidden; }
+  .news-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .news-thumb img + .play { position: absolute; left: 20px; bottom: 20px; width: 52px; height: 52px; box-shadow: 0 4px 16px rgba(0,0,0,.35); }
   .play { width: 64px; height: 64px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
   .play::after { content: ""; border-left: 18px solid var(--teal-900); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
   .news-body { padding: 22px 24px 24px; }
@@ -341,7 +351,7 @@
         <img src="images/pulse-biomed-hub.png" alt="Pulse Biomed Hub"
              onerror="this.outerHTML='<div class=&quot;logo-slot&quot;>Pulse Biomed Hub</div>'">
         <img src="images/league-of-innovators.png" alt="League of Innovators" class="logo-wide">
-        <img src="images/dal-innovates.png" alt="Dal Innovates" class="logo-wide">
+        <img src="images/dal-innovates.png" alt="Dal Innovates" class="logo-dal">
         <img src="images/labs-plus.png" alt="Labs+" class="logo-square">
         <img src="images/mitacs.png" alt="Mitacs" class="logo-mitacs">
       </div>
@@ -420,7 +430,11 @@
         </ul>
         <div class="side-cards">
           <a class="news-card" href="https://www.cbc.ca/player/play/video/9.7364224" target="_blank" rel="noopener">
-            <div class="news-thumb" aria-hidden="true"><div class="play"></div></div>
+            <!-- Add your photo as images/cbc-feature.jpg; until then the dark panel shows -->
+            <div class="news-thumb" aria-hidden="true">
+              <img src="images/cbc-feature.jpg" alt="" onerror="this.remove()">
+              <div class="play"></div>
+            </div>
             <div class="news-body">
               <div class="news-source">Featured on CBC News</div>
               <h3>This hands-free crutch gives people with knee injuries a new way to move around</h3>
