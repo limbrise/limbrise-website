@@ -49,7 +49,8 @@
     border-radius: 6px;
   }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-  section { padding: 104px 0; }
+  section { padding: 72px 0; }
+  @media (max-width: 760px) { section { padding: 56px 0; } }
   h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
   h2 { font-size: clamp(32px, 4.2vw, 48px); font-weight: 700; max-width: 18ch; }
   .lede { font-size: 19px; color: var(--muted); max-width: 60ch; margin: 20px 0 0; }
@@ -168,66 +169,98 @@
   }
 
   /* Problem (dark band) */
-  .problem { background: var(--teal-900); color: #fff; border-radius: var(--radius-lg); margin: 56px 16px 0; }
+  .problem { background: var(--teal-900); color: #fff; border-radius: var(--radius-lg); margin: 40px 16px 0; }
   .problem h2 { color: #fff; }
   .problem .lede { color: #C9DEDB; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
   .stat { border-top: 1px solid rgba(255,255,255,.2); padding-top: 24px; }
   .stat strong { display: block; font-size: clamp(48px, 6vw, 72px); font-weight: 700; letter-spacing: -0.03em; color: #FFC08F; line-height: 1; }
   .stat span { display: block; margin-top: 12px; color: #E3EFED; max-width: 24ch; }
   @media (max-width: 760px) { .stats { grid-template-columns: 1fr; } .problem { margin: 32px 8px 0; } }
 
   /* Gap */
-  .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
-  .gap-figure { background: var(--surface); border-radius: var(--radius-lg); padding: 40px; }
-  .gap-figure strong { font-size: clamp(56px, 7vw, 88px); font-weight: 800; letter-spacing: -0.04em; color: var(--teal-700); line-height: 1; display: block; }
-  .gap-figure p { margin: 12px 0 0; color: var(--muted); }
-  @media (max-width: 860px) { .gap-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .gap-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+  .gap-table { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+  .gap-head, .gap-row { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 16px; padding: 18px 24px; }
+  .gap-head { background: var(--surface); font-size: 14px; font-weight: 600; color: var(--muted); }
+  .gap-row { border-top: 1px solid var(--line); }
+  .gap-row strong { display: block; font-size: 18px; font-weight: 700; }
+  .gap-row small { display: block; color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .gap-status { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+  .gap-status .mark { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
+  .gap-status.yes { color: var(--teal-700); }
+  .gap-status.yes .mark { background: #E2F3F1; }
+  .gap-status.no { color: var(--orange-700); }
+  .gap-status.no .mark { background: #FDEBDC; }
+  .gap-row.missing { background: #FFF8F2; }
+  .gap-close { margin: 20px 0 0; font-weight: 600; }
+  @media (max-width: 860px) { .gap-grid { grid-template-columns: 1fr; gap: 32px; } }
+  @media (max-width: 480px) { .gap-head, .gap-row { padding: 16px; } .gap-row strong { font-size: 16px; } }
 
   /* How it works */
   .how { background: var(--surface); }
-  .steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 64px; list-style: none; padding: 0; }
+  .steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; list-style: none; padding: 0; }
   .steps::before {
-    content: ""; position: absolute; top: 23px; left: 24px; right: calc((100% - 72px) / 4 - 24px); height: 3px;
+    content: ""; position: absolute; top: 31px; left: 32px; right: calc((100% - 72px) / 4 - 32px); height: 3px;
     background: var(--gradient); border-radius: 2px;
   }
   .step { position: relative; }
-  .step-num {
-    width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 3px solid var(--teal-500);
-    display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--teal-700); margin-bottom: 28px;
+  .step-icon {
+    position: relative; width: 64px; height: 64px; border-radius: 50%; background: #fff; border: 3px solid var(--teal-500);
+    display: flex; align-items: center; justify-content: center; color: var(--teal-700); margin-bottom: 24px;
   }
-  .step:nth-child(3) .step-num, .step:nth-child(4) .step-num { border-color: var(--orange-400); color: var(--orange-700); }
-  .step h3 { font-size: 26px; font-weight: 700; }
+  .step-icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .step:nth-child(3) .step-icon, .step:nth-child(4) .step-icon { border-color: var(--orange-400); color: var(--orange-700); }
+  .step-label { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .step h3 { font-size: 26px; font-weight: 700; margin-top: 2px; }
   .step p { color: var(--muted); margin: 10px 0 0; max-width: 28ch; }
-  .credit { margin-top: 56px; font-weight: 600; color: var(--ink); }
+  .credit { margin-top: 40px; font-weight: 600; color: var(--ink); }
   @media (max-width: 860px) {
     .steps { grid-template-columns: 1fr; gap: 36px; }
-    .steps::before { top: 24px; bottom: 24px; left: 23px; right: auto; width: 3px; height: auto; background: linear-gradient(180deg, var(--teal-500), var(--orange-400)); }
-    .step { padding-left: 76px; }
-    .step-num { position: absolute; left: 0; top: 0; margin: 0; }
+    .steps::before { display: none; }
+    .step:not(:last-child)::after { content: ""; position: absolute; left: 31px; top: 64px; bottom: -36px; width: 3px; background: var(--teal-500); }
+    .step:nth-child(2)::after { background: linear-gradient(180deg, var(--teal-500), var(--orange-400)); }
+    .step:nth-child(3)::after { background: var(--orange-400); }
+    .step { padding-left: 88px; min-height: 64px; }
+    .step-icon { position: absolute; left: 0; top: 0; margin: 0; }
   }
 
-  /* Progress */
-  .progress-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; margin-top: 56px; align-items: start; }
-  .milestones { list-style: none; padding: 0; margin: 0; }
-  .milestones li { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); font-weight: 500; }
-  .milestones li:first-child { border-top: 1px solid var(--line); }
-  .milestones small { display: block; font-weight: 400; color: var(--muted); font-size: 15px; }
-  .tag { flex-shrink: 0; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; }
-  .tag-done { background: #E2F3F1; color: var(--teal-700); }
+  /* Where we are */
+  .milestones { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .milestones li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); font-weight: 600; }
+  .milestones small { display: block; font-weight: 400; color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .milestone-logo { height: 30px; width: auto; display: block; margin: 0 0 4px; }
   .tag-live { background: #FDEBDC; color: var(--orange-700); display: inline-flex; align-items: center; gap: 6px; }
   .tag-live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange-700); }
-  .side-cards { display: grid; gap: 20px; }
+  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 24px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line); }
+  .timeline div { padding: 24px; }
+  .timeline div + div { border-left: 1px solid var(--line); }
+  .timeline .now { background: var(--surface); }
+  .timeline strong { display: block; font-size: 28px; font-weight: 700; color: var(--teal-700); }
+  .timeline span { color: var(--muted); }
+  @media (max-width: 860px) {
+    .milestones, .timeline { grid-template-columns: 1fr; }
+    .timeline div + div { border-left: 0; border-top: 1px solid var(--line); }
+  }
+
+  /* Recognition */
+  .recognition { background: var(--surface); }
+  .recog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; align-items: stretch; }
+  .awards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-rows: repeat(3, 1fr); gap: 16px; }
+  .awards li { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 20px 24px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-md); font-weight: 600; }
+  .awards small { display: block; font-weight: 400; color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .tag { flex-shrink: 0; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; }
+  .tag-won { background: #E2F3F1; color: var(--teal-700); }
+  .tag-final { background: #FDEBDC; color: var(--orange-700); }
   .news-card {
-    display: block; text-decoration: none; color: var(--ink);
+    display: block; text-decoration: none; color: var(--ink); background: #fff;
     border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; transition: border-color .2s;
   }
   .news-card:hover { border-color: var(--teal-500); }
   .news-thumb {
-    aspect-ratio: 16 / 8; background: var(--teal-900);
+    aspect-ratio: 16 / 8; background: var(--teal-900); overflow: hidden;
     display: flex; align-items: center; justify-content: center; position: relative;
   }
-  .news-thumb { overflow: hidden; }
   .news-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .news-thumb img + .play { position: absolute; left: 20px; bottom: 20px; width: 52px; height: 52px; box-shadow: 0 4px 16px rgba(0,0,0,.35); }
   .play { width: 64px; height: 64px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
@@ -236,25 +269,17 @@
   .news-source { font-size: 14px; font-weight: 700; color: var(--orange-700); }
   .news-body h3 { font-size: 20px; font-weight: 600; margin-top: 6px; line-height: 1.35; }
   .news-body .watch { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--teal-700); }
-  .incubator-card { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; align-items: center; gap: 24px; }
-  .incubator-card img { height: 44px; width: auto; }
-  .incubator-card p { margin: 0; color: var(--muted); font-size: 15px; }
-  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line); }
-  .timeline div { padding: 24px; }
-  .timeline div + div { border-left: 1px solid var(--line); }
-  .timeline .now { background: var(--surface); }
-  .timeline strong { display: block; font-size: 28px; font-weight: 700; color: var(--teal-700); }
-  .timeline span { color: var(--muted); }
-  @media (max-width: 860px) {
-    .progress-grid { grid-template-columns: 1fr; }
-    .timeline { grid-template-columns: 1fr; }
-    .timeline div + div { border-left: 0; border-top: 1px solid var(--line); }
+  /* Desktop: CBC card fills the column height; photo stretches, text stays at the bottom */
+  @media (min-width: 861px) {
+    .recognition .news-card { display: flex; flex-direction: column; height: 100%; }
+    .recognition .news-thumb { flex: 1; aspect-ratio: auto; min-height: 220px; }
   }
+  @media (max-width: 860px) { .recog-grid { grid-template-columns: 1fr; } .awards { grid-template-rows: none; } }
 
   /* Team */
-  .team { background: var(--surface); }
-  .founders { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
-  .person { background: #fff; border-radius: var(--radius-md); padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+  .team { background: var(--bg); }
+  .founders { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px; }
+  .person { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-md); padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
   .avatar {
     flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%;
     background: var(--gradient); color: #fff; font-weight: 700; font-size: 22px;
@@ -267,7 +292,7 @@
   .role { font-size: 15px; font-weight: 600; color: var(--orange-700); margin-top: 2px; }
   .person p { margin: 10px 0 0; color: var(--muted); font-size: 16px; }
   .person a.li { display: inline-block; margin-top: 12px; font-weight: 600; font-size: 15px; }
-  .advisors-title { font-size: 22px; font-weight: 700; margin: 64px 0 0; }
+  .advisors-title { font-size: 22px; font-weight: 700; margin: 48px 0 0; }
   .advisors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 24px; border-top: 1px solid var(--line); }
   .advisor { padding: 24px 24px 0 0; }
   .advisor h4 { margin: 0; font-size: 18px; font-weight: 700; }
@@ -277,7 +302,7 @@
   @media (max-width: 540px) { .advisors { grid-template-columns: 1fr; } }
 
   /* Contact */
-  .contact { text-align: left; }
+  .contact { text-align: left; padding-top: 0; }
   .contact-box {
     border-radius: var(--radius-lg); padding: 64px; background: var(--teal-900); color: #fff;
     display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; position: relative; overflow: hidden;
@@ -377,12 +402,21 @@
   <section class="gap">
     <div class="wrap gap-grid">
       <div>
-        <h2>Hands-free works. Just not for the knee.</h2>
-        <p class="lede">Hands-free crutches are the better alternative, helping people with foot and ankle injuries return to daily life. But none work for the knee, which means 7 million knee injuries a year in North America with no hands-free option.</p>
+        <h2>Knee injuries have no hands-free option.</h2>
+        <p class="lede">Hands-free crutches already exist, but only for foot and ankle injuries. Anyone with a knee injury is left on conventional crutches.</p>
       </div>
-      <div class="gap-figure">
-        <strong>7M</strong>
-        <p>knee injuries a year in North America with no hands-free option</p>
+      <div>
+        <div class="gap-table" role="table" aria-label="Hands-free options by injury type">
+          <div class="gap-head" role="row"><span role="columnheader">Injury</span><span role="columnheader">Hands-free option</span></div>
+          <div class="gap-row" role="row">
+            <div role="cell"><strong>Foot &amp; ankle</strong></div>
+            <div role="cell"><span class="gap-status yes"><span class="mark" aria-hidden="true">✓</span>Available</span></div>
+          </div>
+          <div class="gap-row missing" role="row">
+            <div role="cell"><strong>Knee</strong></div>
+            <div role="cell"><span class="gap-status no"><span class="mark" aria-hidden="true">✕</span>None, until LimbRise</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -393,22 +427,26 @@
       <h2>How LimbRise works</h2>
       <ol class="steps">
         <li class="step">
-          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 10h7M15 10h7M2 14h7M15 14h7"/><rect x="9" y="7" width="6" height="10" rx="1.5"/><path d="M12 9.5v5"/></svg></div>
+          <div class="step-label">Step 1</div>
           <h3>Wear</h3>
           <p>Straps securely to the lower leg and thigh. Adjustable across a target fit range.</p>
         </li>
         <li class="step">
-          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7.5 10 4.5 4.5 4.5-4.5"/><path d="M4 19.5h16"/></svg></div>
+          <div class="step-label">Step 2</div>
           <h3>Load</h3>
           <p>Redirects the load into your sitting bone, away from the injured limb.</p>
         </li>
         <li class="step">
-          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9h5M2 13h6M4 17h4"/><path d="M11 12h10"/><path d="m17 8 4 4-4 4"/></svg></div>
+          <div class="step-label">Step 3</div>
           <h3>Move</h3>
           <p>Move with both hands free. Stabilize your core like a yoga ball.</p>
         </li>
         <li class="step">
-          <div class="step-num" aria-hidden="true">4</div>
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/><path d="M8 12.5h2.2l1.3-2.2 1.8 4 1.2-1.8H16"/></svg></div>
+          <div class="step-label">Step 4</div>
           <h3>Recover</h3>
           <p>Maintain your daily life, without the setbacks that slow down recovery.</p>
         </li>
@@ -417,43 +455,44 @@
     </div>
   </section>
 
-  <!-- 5. Progress -->
+  <!-- 5. Where we are -->
   <section id="progress">
     <div class="wrap">
       <h2>Where we are</h2>
-      <div class="progress-grid">
-        <ul class="milestones">
-          <li><div>PCT patent filed<small>USA, Canada, Europe, Japan</small></div><span class="tag tag-done">Filed</span></li>
-          <li><div>Bench testing<small>With Dr. Chris McGibbon, UNB</small></div><span class="tag tag-live">Ongoing</span></li>
-          <li><div>Pulse Biomed Hub incubator<small>Accepted</small></div><span class="tag tag-done">Accepted</span></li>
-          <li><div>Canadian Engineering Nationals<small>2026 winners for Most Innovative Design out of 55 engineering schools.</small></div><span class="tag tag-done">Won</span></li>
-          <li><div>Enactus Canada Early-Stage Summer Sprint National Final<small>2026 winners out of 65 ventures from 27 post-secondary schools.</small></div><span class="tag tag-done">Won</span></li>
-          <li><div>Hult Prize Canada National Final<small>2026 national finalist.</small></div><span class="tag tag-done">Finalist</span></li>
-        </ul>
-        <div class="side-cards">
-          <a class="news-card" href="https://www.cbc.ca/player/play/video/9.7364224" target="_blank" rel="noopener">
-            <!-- Add your photo as images/cbc-feature.jpg; until then the dark panel shows -->
-            <div class="news-thumb" aria-hidden="true">
-              <img src="images/cbc-feature.jpg" alt="" onerror="this.remove()">
-              <div class="play"></div>
-            </div>
-            <div class="news-body">
-              <div class="news-source">Featured on CBC News</div>
-              <h3>This hands-free crutch gives people with knee injuries a new way to move around</h3>
-              <span class="watch">Watch the story</span>
-            </div>
-          </a>
-          <div class="incubator-card">
-            <img src="images/pulse-biomed-hub.png" alt="Pulse Biomed Hub"
-                 onerror="this.outerHTML='<div class=&quot;logo-slot&quot;>Pulse Biomed Hub logo</div>'">
-            <p>Member of the Pulse Biomed Hub incubator.</p>
-          </div>
-        </div>
-      </div>
+      <ul class="milestones">
+        <li><span class="tag tag-won">Filed</span><div>PCT patent filed<small>USA, Canada, Europe, Japan</small></div></li>
+        <li><span class="tag tag-live">Ongoing</span><div>Bench testing<small>With Dr. Chris McGibbon, UNB</small></div></li>
+        <li><span class="tag tag-won">Accepted</span><div><img class="milestone-logo" src="images/pulse-biomed-hub.png" alt="Pulse Biomed Hub"><small>Incubator</small></div></li>
+      </ul>
       <div class="timeline">
         <div class="now"><strong>Now</strong><span>Bench testing and design optimization</span></div>
         <div><strong>2027</strong><span>Clinical pilots</span></div>
         <div><strong>2028</strong><span>US launch</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5b. Recognition -->
+  <section class="recognition" id="recognition">
+    <div class="wrap">
+      <h2>Recognition</h2>
+      <div class="recog-grid">
+        <ul class="awards">
+          <li><div>Canadian Engineering Nationals<small>2026 winners for Most Innovative Design out of 55 engineering schools.</small></div><span class="tag tag-won">Winner</span></li>
+          <li><div>Enactus Canada Early-Stage Summer Sprint National Final<small>2026 winners out of 65 ventures from 27 post-secondary schools.</small></div><span class="tag tag-won">Winner</span></li>
+          <li><div>Hult Prize Canada National Final<small>2026 national finalist.</small></div><span class="tag tag-final">Finalist</span></li>
+        </ul>
+        <a class="news-card" href="https://www.cbc.ca/player/play/video/9.7364224" target="_blank" rel="noopener">
+          <div class="news-thumb" aria-hidden="true">
+            <img src="images/cbc-feature.jpg" alt="" onerror="this.remove()">
+            <div class="play"></div>
+          </div>
+          <div class="news-body">
+            <div class="news-source">Featured on CBC News</div>
+            <h3>This hands-free crutch gives people with knee injuries a new way to move around</h3>
+            <span class="watch">Watch the story</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
