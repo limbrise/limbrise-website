@@ -98,15 +98,30 @@
       var(--surface);
     display: flex; align-items: flex-end; padding: 24px;
   }
-  .hero-visual { position: relative; }
-  .hero-visual video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .4s; }
+  .hero-visual { position: relative; justify-self: center; width: 100%; }
+  .hero-visual video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .4s; }
   .hero-visual video.ready { opacity: 1; }
-  .hero-visual video.ready + .placeholder-note { display: none; }
-  .placeholder-note { position: relative; }
-  .placeholder-note { font-size: 14px; color: var(--muted); background: rgba(255,255,255,.85); padding: 8px 14px; border-radius: 999px; }
+  .hero-visual video.ready ~ .placeholder-note { display: none; }
+  /* Once the video loads, the frame takes the video's own shape (no cropping) */
+  .hero-visual.has-video {
+    aspect-ratio: var(--ar); background: var(--teal-900); padding: 0;
+    max-width: calc(78vh * var(--ar));
+  }
+  .placeholder-note { position: relative; font-size: 14px; color: var(--muted); background: rgba(255,255,255,.85); padding: 8px 14px; border-radius: 999px; }
+  .sound-toggle {
+    position: absolute; right: 16px; bottom: 16px; z-index: 2;
+    display: none; align-items: center; gap: 8px;
+    padding: 10px 16px; border: 0; border-radius: 999px; cursor: pointer;
+    background: rgba(13,59,57,.82); color: #fff; font: inherit; font-size: 14px; font-weight: 600;
+    backdrop-filter: blur(6px);
+  }
+  .sound-toggle:hover { background: var(--teal-900); }
+  .sound-toggle svg { width: 18px; height: 18px; }
+  .hero-visual.has-video .sound-toggle { display: inline-flex; }
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
     .hero-visual { aspect-ratio: 16 / 11; }
+    .hero-visual.has-video { max-width: calc(72vh * var(--ar)); }
   }
 
   /* Partner bar */
@@ -287,6 +302,14 @@
           <source src="images/hero.mp4" type="video/mp4">
         </video>
         <span class="placeholder-note">Product video goes here</span>
+        <button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"/>
+            <path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" style="display:none"/>
+            <path class="mute" d="m22 9-6 6M16 9l6 6"/>
+          </svg>
+          <span class="label">Tap for sound</span>
+        </button>
       </div>
     </div>
   </section>
@@ -461,10 +484,36 @@
 </footer>
 
 <script>
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  (function () {
     var v = document.getElementById('hero-video');
-    if (v) { v.removeAttribute('autoplay'); v.pause(); }
-  }
+    var box = v && v.closest('.hero-visual');
+    var btn = document.getElementById('sound-toggle');
+    if (!v || !box) return;
+
+    // Match the frame to the video's real shape so nothing is cropped
+    function fit() {
+      if (!v.videoWidth || !v.videoHeight) return;
+      box.style.setProperty('--ar', (v.videoWidth / v.videoHeight).toFixed(4));
+      box.classList.add('has-video');
+    }
+    v.addEventListener('loadedmetadata', fit);
+    if (v.readyState >= 1) fit();
+
+    // Sound toggle (browsers only allow autoplay when muted)
+    btn.addEventListener('click', function () {
+      v.muted = !v.muted;
+      if (!v.muted) { v.play(); }
+      btn.setAttribute('aria-pressed', String(!v.muted));
+      btn.querySelector('.label').textContent = v.muted ? 'Tap for sound' : 'Sound on';
+      btn.querySelector('.wave').style.display = v.muted ? 'none' : '';
+      btn.querySelector('.mute').style.display = v.muted ? '' : 'none';
+    });
+
+    // Respect visitors who turn off motion: show controls instead of autoplaying
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.removeAttribute('autoplay'); v.pause(); v.controls = true;
+    }
+  })();
 </script>
 </body>
 </html>
