@@ -229,7 +229,9 @@
   .milestones { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .milestones li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); font-weight: 600; }
   .milestones small { display: block; font-weight: 400; color: var(--muted); font-size: 15px; margin-top: 2px; }
-  .milestone-logo { height: 30px; width: auto; display: block; margin: 0 0 4px; }
+  .milestones li.has-logo { flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; }
+  .ms-text { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; flex: 0 0 auto; white-space: nowrap; }
+  .milestone-logo { width: auto; height: auto; max-height: 56px; max-width: 100%; min-width: 0; flex: 0 1 auto; object-fit: contain; }
   .tag-live { background: #FDEBDC; color: var(--orange-700); display: inline-flex; align-items: center; gap: 6px; }
   .tag-live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange-700); }
   .timeline { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 24px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line); }
@@ -348,7 +350,7 @@
         <p>LimbRise lets people recovering from knee-and-below injuries move, work, and live with both hands free.</p>
         <div class="ctas">
           <a class="btn btn-primary" href="#contact">Get in touch</a>
-          <a class="btn btn-ghost" href="mailto:limbrise.team@gmail.com?subject=Investor%20inquiry">Investor inquiries</a>
+          <a class="btn btn-ghost" href="mailto:rj@limbrise.com?subject=Investor%20inquiry%3A%20LimbRise&body=Hi%20LimbRise%20team%2C%0A%0AI%27m%20interested%20in%20learning%20more%20about%20LimbRise%20and%20would%20like%20to%20request%20your%20investor%20materials.%0A%0AName%3A%0AFirm%20/%20organization%3A%0ALocation%20%28city%2C%20country%29%3A%0A%0AThanks%2C">Investor inquiries</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -462,7 +464,7 @@
       <ul class="milestones">
         <li><span class="tag tag-won">Filed</span><div>PCT patent filed<small>USA, Canada, Europe, Japan</small></div></li>
         <li><span class="tag tag-live">Ongoing</span><div>Bench testing<small>With Dr. Chris McGibbon, UNB</small></div></li>
-        <li><span class="tag tag-won">Accepted</span><div><img class="milestone-logo" src="images/pulse-biomed-hub.png" alt="Pulse Biomed Hub"><small>Incubator</small></div></li>
+        <li class="has-logo"><div class="ms-text"><span class="tag tag-won">Accepted</span><div>Pulse Biomed Hub<small>Incubator</small></div></div><img class="milestone-logo" src="images/pulse-biomed-hub.png" alt="" aria-hidden="true"></li>
       </ul>
       <div class="timeline">
         <div class="now"><strong>Now</strong><span>Bench testing and design optimization</span></div>
