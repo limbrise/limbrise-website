@@ -295,11 +295,12 @@
   .person p { margin: 10px 0 0; color: var(--muted); font-size: 16px; }
   .person a.li { display: inline-block; margin-top: 12px; font-weight: 600; font-size: 15px; }
   .advisors-title { font-size: 22px; font-weight: 700; margin: 48px 0 0; }
-  .advisors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 24px; border-top: 1px solid var(--line); }
-  .advisor { padding: 24px 24px 0 0; }
-  .advisor h4 { margin: 0; font-size: 18px; font-weight: 700; }
+  .advisors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 24px; border-top: 1px solid var(--line); }
+  .advisor { padding: 24px 20px 0 0; }
+  .advisor h4 { margin: 0; font-size: 17px; font-weight: 700; white-space: nowrap; }
   .advisor .role { font-size: 14px; }
   .advisor p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+  @media (max-width: 1100px) { .advisors { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 900px) { .founders { grid-template-columns: 1fr; } .advisors { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 540px) { .advisors { grid-template-columns: 1fr; } }
 
@@ -528,8 +529,9 @@
       <div class="advisors">
         <div class="advisor"><h4>Dr. Chris McGibbon</h4><div class="role">Clinical</div><p>146 publications in rehabilitation and mobility.</p></div>
         <div class="advisor"><h4>Dr. Chris Barden</h4><div class="role">Regulatory &amp; IP</div><p>80+ issued patents.</p></div>
-        <div class="advisor"><h4>Dr. Chris Cowper-Smith</h4><div class="role">Commercial</div><p>Two-time medical device founder.</p></div>
+        <div class="advisor"><h4>Dr. Chris Cowper&#8209;Smith</h4><div class="role">Commercial</div><p>Two-time medical device founder.</p></div>
         <div class="advisor"><h4>Atharve Vashishta</h4><div class="role">Product</div><p>Built the world's lightest jetpack.</p></div>
+        <div class="advisor"><h4>Mathew T. Lim</h4><div class="role">Technology Strategy</div><p>Advanced healing and sports biomechanics through computational modelling.</p></div>
       </div>
     </div>
   </section>
